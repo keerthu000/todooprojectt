@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login</title>
+    {% comment %} <link rel="shortcut icon" type="image/png" href="{% static 'assets/images/logos/favicon.png' %}" /> {% endcomment %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <style>
+       
+        #button {
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: white;
+            background-color: #90d0f0;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 9px #99;
+        }
+    
+        #button:hover {background-color:#33ace8}
+    
+        #button:active {
+          background-color: #3e8e41;
+          box-shadow: 0 5px #666;
+          transform: translateY(4px);
+        }
+        .messages li {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        
+        .success {
+            color: #4F8A10;
+            background-color: #DFF2BF;
+        }
+        
+        .error {
+            color: #D8000C;
+            background-color: #FFBABA;
+        }
+        #tablediv {
+            height:1200px;
+            justify-content: center;
+            align-items: center; /* This ensures vertical centering if needed */
+        }
+        .header {
+            transition: all 0.5s;
+            z-index: 997;
+            height: 60px;
+            box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+            background-color: #fff;
+            padding-left: 20px;
+            /* Toggle Sidebar Button */
+            /* Search Bar */
+          }
+          header .toggle-sidebar-btn {
+            font-size: 32px;
+            padding-left: 10px;
+            cursor: pointer;
+            color: #012970;
+          }
+          .header .search-bar-show {
+            top: 60px;
+            visibility: visible;
+            opacity: 1;
+          }
+        
+        
+        .header .search-form {
+          width: 100%;
+        }
+        
+        .header .search-form input {
+          border: 0;
+          font-size: 14px;
+          color: #012970;
+          border: 1px solid rgba(1, 41, 112, 0.2);
+          padding: 7px 38px 7px 8px;
+          border-radius: 3px;
+          transition: 0.3s;
+          width: 100%;
+        }
+        
+        .header .search-form input:focus,
+        .header .search-form input:hover {
+          outline: none;
+          box-shadow: 0 0 10px 0 rgba(1, 41, 112, 0.15);
+          border: 1px solid rgba(1, 41, 112, 0.3);
+        }
+        
+        .header .search-form button {
+          border: 0;
+          padding: 0;
+          margin-left: -30px;
+          background: none;
+        }
+        
+        .header .search-form button i {
+          color: #012970;
+        }
+      .header-nav ul {
+          list-style: none;
+        }
+        
+        .header-nav>ul {
+          margin: 0;
+          padding: 0;
+        }
+        
+        .header-nav .nav-icon {
+          font-size: 22px;
+          color: #012970;
+          margin-right: 25px;
+          position: relative;
+        }
+        
+        .header-nav .nav-profile {
+          color: #012970;
+        }
+        
+        .header-nav .nav-profile img {
+          max-height: 36px;
+        }
+        
+        .header-nav .nav-profile span {
+          font-size: 14px;
+          font-weight: 600;
+        }
+        
+        .header-nav .badge-number {
+          position: absolute;
+          inset: -2px -5px auto auto;
+          font-weight: normal;
+          font-size: 12px;
+          padding: 3px 6px;
+        }
+        
+        .header-nav .notifications {
+          inset: 8px -15px auto auto !important;
+        }
+        
+        .header-nav .notifications .notification-item {
+          display: flex;
+          align-items: center;
+          padding: 15px 10px;
+          transition: 0.3s;
+        }
+        
+        .header-nav .notifications .notification-item i {
+          margin: 0 20px 0 10px;
+          font-size: 24px;
+        }
+        
+        .header-nav .notifications .notification-item h4 {
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 5px;
+        }
+        
+        .header-nav .notifications .notification-item p {
+          font-size: 13px;
+          margin-bottom: 3px;
+          color: #919191;
+        }
+        
+        .header-nav .notifications .notification-item:hover {
+          background-color: #f6f9ff;
+        }
+        
+        .header-nav .messages {
+          inset: 8px -15px auto auto !important;
+        }
+        
+        .header-nav .messages .message-item {
+          padding: 15px 10px;
+          transition: 0.3s;
+        }
+        
+        .header-nav .messages .message-item a {
+          display: flex;
+        }
+        
+        .header-nav .messages .message-item img {
+          margin: 0 20px 0 10px;
+          max-height: 40px;
+        }
+        
+        .header-nav .messages .message-item h4 {
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 5px;
+          color: #444444;
+        }
+        
+        .header-nav .messages .message-item p {
+          font-size: 13px;
+          margin-bottom: 3px;
+          color: #919191;
+        }
+        
+        .header-nav .messages .message-item:hover {
+          background-color: #f6f9ff;
+        }
+        
+        .header-nav .profile {
+          min-width: 240px;
+          padding-bottom: 0;
+          top: 8px !important;
+        }
+        
+        .header-nav .profile .dropdown-header h6 {
+          font-size: 18px;
+          margin-bottom: 0;
+          font-weight: 600;
+          color: #444444;
+        }
+        
+        .header-nav .profile .dropdown-header span {
+          font-size: 14px;
+        }
+        
+        .header-nav .profile .dropdown-item {
+          font-size: 14px;
+          padding: 10px 15px;
+          transition: 0.3s;
+        }
+        
+        .header-nav .profile .dropdown-item i {
+          margin-right: 10px;
+          font-size: 18px;
+          line-height: 0;
+        }
+        
+        .header-nav .profile .dropdown-item:hover {
+          background-color: #f6f9ff;
+        }
+    
+    #billtable {
+        margin: auto; /* Ensures the table is centered horizontally within the flex container */
+        max-width: 100%; /* Makes sure the table does not overflow the container */
+    }
+    </style>
+</head>
+<body>
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        <nav class="header-nav ms-auto bg-light d-flex">
+            <a class=" btn  btn-info" href="{% url 'todocreate' %}"  tabindex="-1"  id="button" role="button" aria-disabled="true" style="margin-right:30px;">Add Todo</a>
+            <a class=" btn  btn-info" href="{% url 'createproject' %}"  tabindex="-1"  id="button" role="button" aria-disabled="true" style="margin-right:30px;">Add Project</a>
+        </nav><!-- End Icons Navigation -->
+    </header>
+    <div class="justify-content-center" style="margin-top:80px;">
+        <h1 style="margin-left:590px;" >Todo Lists of Projects</h1>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div  id="tablediv" style="width:1000px;margin-top:30px;">
+            <table class="table table-bordered table-info table-striped tb table-responsive w-100" id="billtable"  >
+                <thead class="bg-info" style="width:30px;">
+                    <tr class="text-light" style="color:black;">
+                        <th class="bg-secondary text-white" style="width:10px;" >#</th>
+                        <th class="bg-secondary text-white" style="width:10%;" >Project</th>
+                        <th class="bg-secondary text-white" style="width:15%;" >Todo</th>
+                        <th class="bg-secondary text-white" style="width: 20%;" >Created Date</th>
+                        <th class="bg-secondary text-white" style="width: 20%;">Updated date</th>
+                        <th class="bg-secondary text-white" style="width: 20%;" >Status</th>
+                        <th class="bg-secondary text-white" style="width: 40%;" >Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for t in todos %}
+                
+                    <tr>
+                    
+                        <td style="color: black;" >{{ forloop.counter }}</td>
+                        <td style="color: black;"><a class=" list-group-item list-group-item-action " href="{% url 'projectdetails' prjt.id %}"><span class="">{{ t.project.title }}</span></a></td>
+                        <td style="color: black;">{{ t.description }}</td>
+                        <td style="color: black;">{{ t.created_date|date:'Y-m-d' }}</td>
+                    
+                        <td style="color: black;">{{ t.updated_date|date:"Y-m-d" }}</td>
+                        
+                    
+                        {% if t.status == 'Pending' %}
+                        <td style="color: black;"><a href="{% url 'status_change' t.id %}" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true" style="color:white;">{{ t.status }}</a></td>
+                        {% else %}
+                        <td style="color: black;">{{t.status}}</td>
+                        {% endif %}
+                    
+                        <td style="color: black;">
+                        <a href="{% url 'edit_todo' t.id %}" class="btn btn-info"  tabindex="-1" role="button" aria-disabled="true" style="color:white;">Edit</a>
+                        <a href="{% url 'delete_todo'  prjt.id t.id   %}" class="btn btn-danger" tabindex="-1" role="button" aria-disabled="true" style="color:white;">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+</body>
+</html>

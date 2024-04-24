@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login</title>
+    {% comment %} <link rel="shortcut icon" type="image/png" href="{% static 'assets/images/logos/favicon.png' %}" /> {% endcomment %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
+    <style>
+     
+        .nav-item a {
+            font-family: 'Arial', sans-serif; /* Custom font */
+            color: #ffffff; /* Text color */
+            background-color:#90d0f0; /* Button background color */
+            border: none; /* Removes border */
+        }
+        .nav-item a:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+            color: #ffffff; /* Hover text color */
+        }
+        .nav-item a {
+          margin-left: 10px; /* Adjusted left margin for better spacing */
+          padding: 10px 15px; /* Top/bottom and left/right padding */
+          display: inline-block; /* Ensures proper alignment */
+        }
+        .nav-item a {
+          transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for background and text color */
+        }
+        @media (max-width: 768px) {
+          .nav-item a {
+              margin-left: 0; /* Reduces left margin on smaller screens */
+              padding: 8px 10px; /* Smaller padding for smaller screens */
+          }
+        }
+      .nav-item a.active {
+        background-color: #004085; /* Active link background color */
+        color: #fff; /* Active link text color */
+      }
+      
+        .header {
+            transition: all 0.5s;
+            z-index: 997;
+            height: 60px;
+            box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+            background-color: #fff;
+            padding-left: 20px;
+            /* Toggle Sidebar Button */
+            /* Search Bar */
+          }
+          
+          .header .toggle-sidebar-btn {
+            font-size: 32px;
+            padding-left: 10px;
+            cursor: pointer;
+            color: #012970;
+          }
+          
+          .header .search-bar {
+            min-width: 360px;
+            padding: 0 20px;
+          }
+          
+          @media (max-width: 1199px) {
+            .header .search-bar {
+              position: fixed;
+              top: 50px;
+              left: 0;
+              right: 0;
+              padding: 20px;
+              box-shadow: 0px 0px 15px 0px rgba(1, 41, 112, 0.1);
+              background: white;
+              z-index: 9999;
+              transition: 0.3s;
+              visibility: hidden;
+              opacity: 0;
+            }
+          
+            .header .search-bar-show {
+              top: 60px;
+              visibility: visible;
+              opacity: 1;
+            }
+          }
+          
+          .header .search-form {
+            width: 100%;
+          }
+          
+          .header .search-form input {
+            border: 0;
+            font-size: 14px;
+            color: #012970;
+            border: 1px solid rgba(1, 41, 112, 0.2);
+            padding: 7px 38px 7px 8px;
+            border-radius: 3px;
+            transition: 0.3s;
+            width: 100%;
+          }
+          
+          .header .search-form input:focus,
+          .header .search-form input:hover {
+            outline: none;
+            box-shadow: 0 0 10px 0 rgba(1, 41, 112, 0.15);
+            border: 1px solid rgba(1, 41, 112, 0.3);
+          }
+          
+          .header .search-form button {
+            border: 0;
+            padding: 0;
+            margin-left: -30px;
+            background: none;
+          }
+          
+          .header .search-form button i {
+            color: #012970;
+          }
+        .header-nav ul {
+            list-style: none;
+          }
+          
+          .header-nav>ul {
+            margin: 0;
+            padding: 0;
+          }
+          
+          .header-nav .nav-icon {
+            font-size: 22px;
+            color: #012970;
+            margin-right: 25px;
+            position: relative;
+          }
+          
+          .header-nav .nav-profile {
+            color: #012970;
+          }
+          
+          .header-nav .nav-profile img {
+            max-height: 36px;
+          }
+          
+          .header-nav .nav-profile span {
+            font-size: 14px;
+            font-weight: 600;
+          }
+          
+          .header-nav .badge-number {
+            position: absolute;
+            inset: -2px -5px auto auto;
+            font-weight: normal;
+            font-size: 12px;
+            padding: 3px 6px;
+          }
+          
+          .header-nav .notifications {
+            inset: 8px -15px auto auto !important;
+          }
+          
+          .header-nav .notifications .notification-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 10px;
+            transition: 0.3s;
+          }
+          
+          .header-nav .notifications .notification-item i {
+            margin: 0 20px 0 10px;
+            font-size: 24px;
+          }
+          
+          .header-nav .notifications .notification-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+          }
+          
+          .header-nav .notifications .notification-item p {
+            font-size: 13px;
+            margin-bottom: 3px;
+            color: #919191;
+          }
+          
+          .header-nav .notifications .notification-item:hover {
+            background-color: #f6f9ff;
+          }
+          
+          .header-nav .messages {
+            inset: 8px -15px auto auto !important;
+          }
+          
+          .header-nav .messages .message-item {
+            padding: 15px 10px;
+            transition: 0.3s;
+          }
+          
+          .header-nav .messages .message-item a {
+            display: flex;
+          }
+          
+          .header-nav .messages .message-item img {
+            margin: 0 20px 0 10px;
+            max-height: 40px;
+          }
+          
+          .header-nav .messages .message-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #444444;
+          }
+          
+          .header-nav .messages .message-item p {
+            font-size: 13px;
+            margin-bottom: 3px;
+            color: #919191;
+          }
+          
+          .header-nav .messages .message-item:hover {
+            background-color: #f6f9ff;
+          }
+          
+          .header-nav .profile {
+            min-width: 240px;
+            padding-bottom: 0;
+            top: 8px !important;
+          }
+          
+          .header-nav .profile .dropdown-header h6 {
+            font-size: 18px;
+            margin-bottom: 0;
+            font-weight: 600;
+            color: #444444;
+          }
+          
+          .header-nav .profile .dropdown-header span {
+            font-size: 14px;
+          }
+          
+          .header-nav .profile .dropdown-item {
+            font-size: 14px;
+            padding: 10px 15px;
+            transition: 0.3s;
+          }
+          
+          .header-nav .profile .dropdown-item i {
+            margin-right: 10px;
+            font-size: 18px;
+            line-height: 0;
+          }
+          
+          .header-nav .profile .dropdown-item:hover {
+            background-color: #f6f9ff;
+          }
+          .messages li {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        
+        .success {
+            color: #4F8A10;
+            background-color: #DFF2BF;
+        }
+        
+        .error {
+            color: #D8000C;
+            background-color: #FFBABA;
+        }
+        
+    </style>
+</head>
+<body  style="background-color:#e7fbfe;"> 
+    <header id="header" class="header fixed-top d-flex align-items-center">
+  
+    
+    
+        
+    
+        <nav class="header-nav ms-auto bg-light">
+            <ul class="d-flex align-items-center">
+
+                
+            
+                <!-- Add Button -->
+                <li class="nav-item pe-0">
+                  <a class="btn nav-link ml-2" href="{% url 'todocreate' %}" role="button">
+                      <i class="fas fa-plus"></i> Add Todo
+                  </a>
+              </li>
+              <li class="nav-item pe-0">
+                  <a class="btn nav-link ml-2" href="{% url 'createproject' %}" role="button">
+                      <i class="fas fas fa-plus"></i> Add Project
+                  </a>
+              </li>
+              <li class="nav-item pe-0">
+                  <a class="btn nav-link ml-2" href="{% url 'todolist' prjt.id %}" role="button">
+                      <i class="fas fa-list"></i> View Todo
+                  </a>
+              </li>
+                
+                
+              <li class="nav pe-0">
+                <a  class="btn btn-warning ml-2"  href="{% url 'export_project_summary' prjt.id %}" tabindex="-1" role="button" aria-disabled="true" style="color:white;">Export Project as Gist</a>
+
+              </li>
+            
+                <!-- Remove Button -->
+              
+                <li class="nav-item dropdown pe-0">
+                    <form method="post" action="{% url 'delete_project' prjt.id %}" id="delete-project-form-{{ prjt.id }}">
+                        {% csrf_token %}
+                        <button type="button" class="btn btn-danger ml-2" onclick="return deleteproject('{{ prjt.id }}')">Remove</button>
+                    </form>
+                </li>
+                
+            
+                <!-- Update Button -->
+               
+            
+            </ul>
+            
+
+        </nav><!-- End Icons Navigation -->
+    
+      </header>
+
+    <div class="card container " style="width:1200px;height:1200px;margin-top:130px;">
+      
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li {% if message.tags %}class="{{ message.tags }}" {% endif %}}>{{ message|safe }}</li>
+        {% endfor %}
+    </ul>
+  {% endif %}
+        <div class="container">
+           <div> <h1 class="mb-3" style="margin-top:40px;">Project Details: {{ prjt.title }}</h1></div>
+            
+            <!-- Project Meta Information -->
+            <div class="bg-light p-3 rounded mb-4">
+                <p class="mb-1"><strong>Created on:</strong> {{ prjt.created_date|date:'Y-m-d' }}</p>
+            </div>
+          
+         
+            <!-- Todos Section -->
+            <h2 class="mb-3">Todo List for this Project</h2>
+            <p><b>Summary:</b> {{ to_completed }} / {{ todos_total }} completed.</p>
+            <h3 class="mt-4 mb-2">Pending Todos</h3>
+            <ul >
+                {% for t in todo %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center" >
+                        {{ t.description }}
+                        <input type="checkbox" class="form-check-input" >
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No pending todos found.</li>
+                {% endfor %}
+            </ul>
+
+          <!-- Completed Todos Section -->
+            <h3 class="mt-4 mb-2" >Completed Todos</h3>
+            <ul >
+                {% for t in todos_completed %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ t.description }}
+                        <input type="checkbox" class="form-check-input" checked>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No completed todos found.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+
+    
+
+    
+    <script>
+        function deleteproject(id) {
+            console.log("Function called for ID:", id); // Debug: Check if function is called and ID is correct
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this project!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    var form = document.getElementById('delete-project-form-' + id);
+                    console.log("Form to submit:", form); // Debug: Check if form is found
+                    form.submit();
+                }
+            });
+            return false;
+        }
+    </script>
+    
+</body>
+</html>
